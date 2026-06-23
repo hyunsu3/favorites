@@ -7,7 +7,7 @@ export default function NewLinkForm({ folders }: { folders: Folder[] }) {
       <div className="flex flex-col gap-2">
         <label
           htmlFor="url"
-          className="text-sm font-medium text-black dark:text-zinc-50"
+          className="text-sm font-medium text-black"
         >
           링크
         </label>
@@ -16,13 +16,13 @@ export default function NewLinkForm({ folders }: { folders: Folder[] }) {
           name="url"
           type="url"
           placeholder="https://example.com"
-          className="w-full rounded-md border border-black/[.08] bg-transparent px-3 py-2 text-sm text-black placeholder:text-zinc-400 focus:outline-none dark:border-white/[.145] dark:text-zinc-50"
+          className="w-full rounded-md border border-black/[.08] bg-transparent px-3 py-2 text-sm text-black placeholder:text-zinc-400 focus:outline-none"
         />
       </div>
       <div className="flex flex-col gap-2">
         <label
           htmlFor="folder"
-          className="text-sm font-medium text-black dark:text-zinc-50"
+          className="text-sm font-medium text-black"
         >
           폴더
         </label>
@@ -30,7 +30,7 @@ export default function NewLinkForm({ folders }: { folders: Folder[] }) {
       </div>
       <button
         type="submit"
-        className="mt-2 rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc]"
+        className="mt-2 rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background transition-colors hover:bg-[#383838]"
       >
         저장
       </button>

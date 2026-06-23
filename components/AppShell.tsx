@@ -4,7 +4,7 @@ import { folders } from "@/app/_lib/mock-data";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex h-full flex-1 flex-col bg-zinc-50 dark:bg-black">
+    <div className="flex h-full flex-1 flex-col bg-zinc-50">
       <Header />
       <div className="flex flex-1">
         <Sidebar folders={folders} />
