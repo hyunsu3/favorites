@@ -1,14 +1,18 @@
-import Link from "next/link";
-import type { Folder } from "@/app/_lib/mock-data";
+"use client";
 
-export default function FolderList({ folders }: { folders: Folder[] }) {
+import Link from "next/link";
+import { useFolders } from "@/app/_lib/folders-context";
+
+export default function FolderList() {
+  const { folders } = useFolders();
+
   return (
     <ul className="flex flex-col gap-1">
       {folders.map((folder) => (
         <li key={folder.id}>
           <Link
             href={`/folder/${folder.id}`}
-            className="block w-full rounded-md px-3 py-2 text-left text-sm text-zinc-600 transition-colors hover:bg-black/[.04]"
+            className="block w-full rounded-xl px-3 py-2 text-left text-sm text-[var(--text-sub)] transition-colors hover:bg-[var(--background)]"
           >
             {folder.name}
           </Link>

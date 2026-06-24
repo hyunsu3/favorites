@@ -1,17 +1,16 @@
 import Link from "next/link";
+import NewFolderButton from "@/components/NewFolderButton";
 
 export default function Header() {
   return (
-    <header className="flex items-center justify-between border-b border-black/[.08] px-6 py-4">
-      <span className="text-xl font-bold tracking-tight text-black">
-        초코프레스
-      </span>
-      <Link
-        href="/new"
-        className="rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background transition-colors hover:bg-[#383838]"
-      >
-        + 새 링크
-      </Link>
+    <header className="sticky top-0 z-10 flex h-14 items-center justify-between bg-[var(--card-bg)] px-5 shadow-[0_1px_0_rgba(0,0,0,0.06)]">
+      <span className="text-xl font-bold text-[var(--text)]">초코프레스</span>
+      <div className="flex items-center gap-2">
+        <NewFolderButton />
+        <Link href="/new" className="btn-primary">
+          + 새 링크
+        </Link>
+      </div>
     </header>
   );
 }
