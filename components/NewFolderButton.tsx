@@ -8,7 +8,7 @@ export default function NewFolderButton() {
 
   return (
     <>
-      <button type="button" onClick={() => setIsOpen(true)} className="btn-secondary">
+      <button type="button" onClick={() => setIsOpen(true)} className="btn-secondary-sm">
         + 새 폴더
       </button>
       <NewFolderModal isOpen={isOpen} onClose={() => setIsOpen(false)} />

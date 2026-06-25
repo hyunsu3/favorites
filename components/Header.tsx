@@ -7,7 +7,7 @@ export default function Header() {
       <span className="text-xl font-bold text-[var(--text)]">초코프레스</span>
       <div className="flex items-center gap-2">
         <NewFolderButton />
-        <Link href="/new" className="btn-primary">
+        <Link href="/new" className="btn-primary-sm">
           + 새 링크
         </Link>
       </div>
