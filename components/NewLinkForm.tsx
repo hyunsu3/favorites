@@ -1,7 +1,6 @@
-import type { Folder } from "@/app/_lib/mock-data";
 import FolderSelect from "@/components/FolderSelect";
 
-export default function NewLinkForm({ folders }: { folders: Folder[] }) {
+export default function NewLinkForm() {
   return (
     <form className="flex max-w-md flex-col gap-4">
       <div className="flex flex-col gap-2">
@@ -26,7 +25,7 @@ export default function NewLinkForm({ folders }: { folders: Folder[] }) {
         >
           폴더
         </label>
-        <FolderSelect folders={folders} />
+        <FolderSelect />
       </div>
       <button type="submit" className="btn-primary mt-2">
         저장

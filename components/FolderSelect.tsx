@@ -1,6 +1,10 @@
-import type { Folder } from "@/app/_lib/mock-data";
+"use client";
 
-export default function FolderSelect({ folders }: { folders: Folder[] }) {
+import { useFolders } from "@/app/_lib/folders-context";
+
+export default function FolderSelect() {
+  const { folders } = useFolders();
+
   return (
     <select
       id="folder"
