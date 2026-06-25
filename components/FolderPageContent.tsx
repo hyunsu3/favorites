@@ -1,11 +1,12 @@
 "use client";
 
 import { useFolders } from "@/app/_lib/folders-context";
+import { useLinks } from "@/app/_lib/links-context";
 import LinkGrid from "@/components/LinkGrid";
-import { links } from "@/app/_lib/mock-data";
 
 export default function FolderPageContent({ folderId }: { folderId: string }) {
   const { folders } = useFolders();
+  const { links } = useLinks();
   const folder = folders.find((item) => item.id === folderId);
 
   if (!folder) {

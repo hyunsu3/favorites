@@ -170,6 +170,7 @@ body {
   align-items: center;
   gap: 2px;
   opacity: 0;
+  pointer-events: none;
   transition: opacity 0.2s ease;
 }
 .folder-row:hover .folder-actions {
@@ -184,6 +185,7 @@ body {
   justify-content: center;
   border-radius: 8px;
   color: var(--text-sub);
+  pointer-events: auto;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 .folder-action-btn:hover {
