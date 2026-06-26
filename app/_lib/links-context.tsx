@@ -12,9 +12,16 @@ type NewLinkInput = {
   siteName?: string;
 };
 
+type LinkUpdate = {
+  folderId?: string;
+  title?: string;
+  description?: string;
+};
+
 type LinksContextValue = {
   links: BookmarkLink[];
   addLink: (input: NewLinkInput) => void;
+  updateLink: (id: string, update: LinkUpdate) => void;
   deleteLink: (id: string) => void;
 };
 
@@ -37,12 +44,18 @@ export function LinksProvider({
     setLinks((prev) => [...prev, newLink]);
   }
 
+  function updateLink(id: string, update: LinkUpdate) {
+    setLinks((prev) =>
+      prev.map((link) => (link.id === id ? { ...link, ...update } : link)),
+    );
+  }
+
   function deleteLink(id: string) {
     setLinks((prev) => prev.filter((link) => link.id !== id));
   }
 
   return (
-    <LinksContext.Provider value={{ links, addLink, deleteLink }}>
+    <LinksContext.Provider value={{ links, addLink, updateLink, deleteLink }}>
       {children}
     </LinksContext.Provider>
   );
