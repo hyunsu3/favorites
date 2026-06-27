@@ -19,6 +19,7 @@ export default function EditLinkModal({
   const [folderId, setFolderId] = useState(link.folderId);
   const [title, setTitle] = useState(link.title);
   const [description, setDescription] = useState(link.description ?? "");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -28,16 +29,21 @@ export default function EditLinkModal({
     }
   }, [isOpen, link]);
 
-  function handleSave(event: FormEvent) {
+  async function handleSave(event: FormEvent) {
     event.preventDefault();
     const trimmedTitle = title.trim();
-    if (!trimmedTitle || !folderId) return;
-    updateLink(link.id, {
-      folderId,
-      title: trimmedTitle,
-      description: description.trim() || undefined,
-    });
-    onClose();
+    if (!trimmedTitle || !folderId || isSubmitting) return;
+    setIsSubmitting(true);
+    try {
+      await updateLink(link.id, {
+        folderId,
+        title: trimmedTitle,
+        description: description.trim() || undefined,
+      });
+      onClose();
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -73,8 +79,8 @@ export default function EditLinkModal({
           <button type="button" onClick={onClose} className="btn-secondary">
             취소
           </button>
-          <button type="submit" className="btn-primary">
-            저장
+          <button type="submit" disabled={isSubmitting} className="btn-primary">
+            {isSubmitting ? "저장 중..." : "저장"}
           </button>
         </div>
       </form>

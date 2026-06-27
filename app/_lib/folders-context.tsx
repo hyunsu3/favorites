@@ -8,7 +8,7 @@ type FoldersContextValue = {
   folders: Folder[];
   addFolder: (name: string) => Promise<void>;
   renameFolder: (id: string, name: string) => Promise<void>;
-  deleteFolder: (id: string) => void;
+  deleteFolder: (id: string) => Promise<void>;
 };
 
 const FoldersContext = createContext<FoldersContextValue | null>(null);
@@ -43,7 +43,9 @@ export function FoldersProvider({
     );
   }
 
-  function deleteFolder(id: string) {
+  async function deleteFolder(id: string) {
+    const { error } = await supabase.from("folders").delete().eq("id", Number(id));
+    if (error) throw error;
     setFolders((prev) => prev.filter((folder) => folder.id !== id));
   }
 

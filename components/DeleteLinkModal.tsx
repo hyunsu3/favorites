@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Modal from "@/components/Modal";
 import { useLinks } from "@/app/_lib/links-context";
 import type { BookmarkLink } from "@/app/_lib/mock-data";
@@ -14,10 +15,17 @@ export default function DeleteLinkModal({
   onClose: () => void;
 }) {
   const { deleteLink } = useLinks();
+  const [isDeleting, setIsDeleting] = useState(false);
 
-  function handleDelete() {
-    deleteLink(link.id);
-    onClose();
+  async function handleDelete() {
+    if (isDeleting) return;
+    setIsDeleting(true);
+    try {
+      await deleteLink(link.id);
+      onClose();
+    } finally {
+      setIsDeleting(false);
+    }
   }
 
   return (
@@ -30,8 +38,8 @@ export default function DeleteLinkModal({
         <button type="button" onClick={onClose} className="btn-secondary">
           취소
         </button>
-        <button type="button" onClick={handleDelete} className="btn-danger">
-          삭제
+        <button type="button" onClick={handleDelete} disabled={isDeleting} className="btn-danger">
+          {isDeleting ? "삭제 중..." : "삭제"}
         </button>
       </div>
     </Modal>

@@ -47,7 +47,7 @@ export default function NewLinkForm() {
 
     const og = await fetchOgInfo(url);
 
-    addLink({
+    await addLink({
       url,
       folderId,
       title: og?.title ?? url,

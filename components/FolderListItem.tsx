@@ -6,6 +6,7 @@ import PencilIcon from "@/components/PencilIcon";
 import TrashIcon from "@/components/TrashIcon";
 import EditFolderModal from "@/components/EditFolderModal";
 import DeleteFolderModal from "@/components/DeleteFolderModal";
+import FolderBadge from "@/components/FolderBadge";
 import type { Folder } from "@/app/_lib/mock-data";
 
 export default function FolderListItem({ folder }: { folder: Folder }) {
@@ -15,7 +16,7 @@ export default function FolderListItem({ folder }: { folder: Folder }) {
   return (
     <li className="folder-row">
       <Link href={`/folder/${folder.id}`} className="folder-link">
-        {folder.name}
+        <FolderBadge folder={folder} />
       </Link>
       <div className="folder-actions">
         <button
