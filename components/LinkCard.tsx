@@ -81,14 +81,20 @@ export default function LinkCard({
             </svg>
           </button>
         </div>
-        {link.thumbnail && (
-          <img
-            src={link.thumbnail}
-            alt=""
-            className="aspect-video w-full rounded-md object-cover"
-          />
-        )}
-        {folder && <FolderBadge folder={folder} />}
+        <div className="relative">
+          {link.thumbnail && (
+            <img
+              src={link.thumbnail}
+              alt=""
+              className="aspect-video w-full rounded-md object-cover"
+            />
+          )}
+          {folder && (
+            <div className="absolute left-1 top-0.5">
+              <FolderBadge folder={folder} />
+            </div>
+          )}
+        </div>
         {link.siteName && (
           <span className="truncate text-xs font-medium text-zinc-400">
             {link.siteName}

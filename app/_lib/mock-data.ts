@@ -11,7 +11,7 @@ export type BookmarkLink = {
 export type Folder = {
   id: string;
   name: string;
-  color: string;
+  color?: string;
 };
 
 export const folders: Folder[] = [

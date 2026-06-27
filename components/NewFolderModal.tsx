@@ -13,20 +13,24 @@ export default function NewFolderModal({
 }) {
   const { addFolder } = useFolders();
   const [name, setName] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   function handleClose() {
     setName("");
     onClose();
   }
 
-  function handleSave(event: FormEvent) {
+  async function handleSave(event: FormEvent) {
     event.preventDefault();
     const trimmed = name.trim();
-    if (!trimmed) {
-      return;
+    if (!trimmed || isSubmitting) return;
+    setIsSubmitting(true);
+    try {
+      await addFolder(trimmed);
+      handleClose();
+    } finally {
+      setIsSubmitting(false);
     }
-    addFolder(trimmed);
-    handleClose();
   }
 
   return (
@@ -45,8 +49,8 @@ export default function NewFolderModal({
           <button type="button" onClick={handleClose} className="btn-secondary">
             취소
           </button>
-          <button type="submit" className="btn-primary">
-            저장
+          <button type="submit" disabled={isSubmitting} className="btn-primary">
+            {isSubmitting ? "저장 중..." : "저장"}
           </button>
         </div>
       </form>

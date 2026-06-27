@@ -2,9 +2,15 @@ import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
 import { FoldersProvider } from "@/app/_lib/folders-context";
 import { LinksProvider } from "@/app/_lib/links-context";
-import { folders, links } from "@/app/_lib/mock-data";
+import { links, folders as mockFolders } from "@/app/_lib/mock-data";
+import type { Folder } from "@/app/_lib/mock-data";
+import { supabase } from "@/lib/supabase";
 
-export default function AppShell({ children }: { children: React.ReactNode }) {
+export default async function AppShell({ children }: { children: React.ReactNode }) {
+  const { data } = await supabase.from("folders").select("id, name").order("created_at");
+  const supabaseFolders: Folder[] = (data ?? []).map((f) => ({ id: String(f.id), name: f.name }));
+  const folders: Folder[] = [...mockFolders, ...supabaseFolders];
+
   return (
     <FoldersProvider initialFolders={folders}>
       <LinksProvider initialLinks={links}>

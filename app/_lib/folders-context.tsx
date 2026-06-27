@@ -2,11 +2,12 @@
 
 import { createContext, useContext, useState, type ReactNode } from "react";
 import type { Folder } from "@/app/_lib/mock-data";
+import { supabase } from "@/lib/supabase";
 
 type FoldersContextValue = {
   folders: Folder[];
-  addFolder: (name: string) => void;
-  renameFolder: (id: string, name: string) => void;
+  addFolder: (name: string) => Promise<void>;
+  renameFolder: (id: string, name: string) => Promise<void>;
   deleteFolder: (id: string) => void;
 };
 
@@ -21,16 +22,22 @@ export function FoldersProvider({
 }) {
   const [folders, setFolders] = useState(initialFolders);
 
-  function addFolder(name: string) {
-    const newFolder: Folder = {
-      id: crypto.randomUUID(),
-      name,
-      color: "bg-slate-100 text-slate-700",
-    };
-    setFolders((prev) => [...prev, newFolder]);
+  async function addFolder(name: string) {
+    const { data, error } = await supabase
+      .from("folders")
+      .insert({ name })
+      .select("id, name")
+      .single();
+    if (error) throw error;
+    setFolders((prev) => [...prev, { id: String(data.id), name: data.name }]);
   }
 
-  function renameFolder(id: string, name: string) {
+  async function renameFolder(id: string, name: string) {
+    const { error } = await supabase
+      .from("folders")
+      .update({ name })
+      .eq("id", Number(id));
+    if (error) throw error;
     setFolders((prev) =>
       prev.map((folder) => (folder.id === id ? { ...folder, name } : folder)),
     );

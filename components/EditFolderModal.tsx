@@ -16,6 +16,7 @@ export default function EditFolderModal({
 }) {
   const { renameFolder } = useFolders();
   const [name, setName] = useState(folder.name);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -23,14 +24,17 @@ export default function EditFolderModal({
     }
   }, [isOpen, folder.name]);
 
-  function handleSave(event: FormEvent) {
+  async function handleSave(event: FormEvent) {
     event.preventDefault();
     const trimmed = name.trim();
-    if (!trimmed) {
-      return;
+    if (!trimmed || isSubmitting) return;
+    setIsSubmitting(true);
+    try {
+      await renameFolder(folder.id, trimmed);
+      onClose();
+    } finally {
+      setIsSubmitting(false);
     }
-    renameFolder(folder.id, trimmed);
-    onClose();
   }
 
   return (
@@ -49,8 +53,8 @@ export default function EditFolderModal({
           <button type="button" onClick={onClose} className="btn-secondary">
             취소
           </button>
-          <button type="submit" className="btn-primary">
-            저장
+          <button type="submit" disabled={isSubmitting} className="btn-primary">
+            {isSubmitting ? "저장 중..." : "저장"}
           </button>
         </div>
       </form>
